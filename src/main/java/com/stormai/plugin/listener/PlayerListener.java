@@ -1,7 +1,6 @@
 package com.stormai.plugin.listener;
 
 import com.stormai.plugin.SoulBoundSMP;
-import com.stormai.plugin.util.SoulManager;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -43,7 +42,7 @@ public class PlayerListener implements Listener {
         e.getDrops().clear();
 
         // Drop a physical Soul item
-        ItemStack soulItem = new ItemStack(Material.SHULK_SHELL);
+        ItemStack soulItem = new ItemStack(Material.SHULKER_SHELL);
         ItemMeta meta = soulItem.getItemMeta();
         meta.setDisplayName(ChatColor.DARK_PURPLE + "Soul");
         meta.setLore(Collections.singletonList(ChatColor.GRAY + "Hold to gain a temporary ability."));
@@ -64,10 +63,12 @@ public class PlayerListener implements Listener {
 
     @EventHandler
     public void onPickup(PlayerPickupItemEvent e) {
-        if (!(e.getItem() != null && e.getItem().getItemMeta() != null &&
-                "Soul".equals(ChatColor.stripColor(e.getItem().getItemMeta().getDisplayName())))) {
-            return;
-        }
+        if (e.getItem() == null) return;
+        ItemStack stack = e.getItem().getItemStack();
+        if (stack == null || stack.getItemMeta() == null) return;
+
+        String displayName = ChatColor.stripColor(stack.getItemMeta().getDisplayName());
+        if (displayName == null || !"Soul".equals(displayName)) return;
 
         Player player = e.getPlayer();
         int current = plugin.getSoulManager().getSoulCount(player);
