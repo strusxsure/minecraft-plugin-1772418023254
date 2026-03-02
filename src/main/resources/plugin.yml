@@ -1,0 +1,13 @@
+name: SoulBoundSMP
+version: 1.0
+main: com.stormai.plugin.SoulBoundSMP
+api-version: 1.21
+description: A SMP plugin where players collect Souls instead of hearts.
+author: StormAI
+permissions:
+  soulboundsmp.view:
+    description: View your soul count
+    default: true
+  soulboundsmp.use:
+    description: Use the ability menu
+    default: true
