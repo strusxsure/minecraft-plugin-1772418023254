@@ -14,6 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 
+import java.util.Collections;
+
 public class PlayerListener implements Listener {
 
     private final SoulBoundSMP plugin;
@@ -37,14 +39,14 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onDeath(PlayerDeathEvent e) {
         Player victim = e.getEntity();
-        int souls = SoulManager.getInstance().getSoulCount(victim);
+        int souls = plugin.getSoulManager().getSoulCount(victim);
         e.getDrops().clear();
 
         // Drop a physical Soul item
         ItemStack soulItem = new ItemStack(Material.SHULK_SHELL);
         ItemMeta meta = soulItem.getItemMeta();
         meta.setDisplayName(ChatColor.DARK_PURPLE + "Soul");
-        meta.setLore(java.util.Collections.singletonList(ChatColor.GRAY + "Hold to gain a temporary ability."));
+        meta.setLore(Collections.singletonList(ChatColor.GRAY + "Hold to gain a temporary ability."));
         soulItem.setItemMeta(meta);
 
         // Drop at victim's location
@@ -68,9 +70,9 @@ public class PlayerListener implements Listener {
         }
 
         Player player = e.getPlayer();
-        int current = SoulManager.getInstance().getSoulCount(player);
-        SoulManager.getInstance().addSoul(player, 1);
-        player.sendMessage(ChatColor.AQUA + "You gathered a Soul! Current: " + SoulManager.getInstance().getSoulCount(player));
+        int current = plugin.getSoulManager().getSoulCount(player);
+        plugin.getSoulManager().addSoul(player, 1);
+        player.sendMessage(ChatColor.AQUA + "You gathered a Soul! Current: " + plugin.getSoulManager().getSoulCount(player));
 
         // Revive: restore max health to default (20) if it was reduced
         AttributeInstance healthAttr = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);

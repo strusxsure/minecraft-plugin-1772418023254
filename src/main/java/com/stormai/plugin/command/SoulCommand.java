@@ -2,6 +2,7 @@ package com.stormai.plugin.command;
 
 import com.stormai.plugin.SoulBoundSMP;
 import com.stormai.plugin.util.SoulManager;
+import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 
@@ -21,7 +22,7 @@ public class SoulCommand implements CommandExecutor {
         }
 
         if (sender instanceof Player p) {
-            int count = SoulManager.getInstance().getSoulCount(p);
+            int count = plugin.getSoulManager().getSoulCount(p);
             p.sendMessage(ChatColor.GOLD + "You have " + count + " Soul" + (count == 1 ? "" : "s") + ".");
         } else {
             sender.sendMessage("§cOnly players can view soul count.");
