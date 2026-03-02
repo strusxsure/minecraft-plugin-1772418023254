@@ -26,7 +26,7 @@ public class PlayerListener implements Listener {
     public void onJoin(PlayerJoinEvent e) {
         Player p = e.getPlayer();
         // Load soul count from config
-        int count = plugin.getSoulManager().loadSoulCount(p);
+        int count = plugin.getSoulManager().getSoulCount(p);
         // Set default max health if not already modified
         AttributeInstance healthAttr = p.getAttribute(Attribute.GENERIC_MAX_HEALTH);
         if (healthAttr != null) {
